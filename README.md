@@ -4,7 +4,7 @@ This is my entry into the 2024 Improve On Terrible Python Code contest.
 
 My solution to the jig checker problem is to recast it as an exact cover problem, then use Knuth's Algorithm X to solve it, specifically the [DLX realisation]( https://arxiv.org/abs/cs/0011047 ).
 
-On my machine, this solves [Matt Parker's sample layout]( https://www.dropbox.com/scl/fi/dvylpftby1uzlrmpdt1mp/matt-jigsaw-layout.pdf?rlkey=512hqdr9y9h5mxjonhxiwhsy4&e=1&dl=0 ) in 94ms, correctly finding 8 solutions: two unique solutions, with four rotations of the whole grid.
+On my machine, this solves [Matt Parker's sample layout]( https://www.dropbox.com/scl/fi/dvylpftby1uzlrmpdt1mp/matt-jigsaw-layout.pdf?rlkey=512hqdr9y9h5mxjonhxiwhsy4&e=1&dl=0 ) in 13ms, correctly finding 8 solutions: two unique solutions, with four rotations of the whole grid.
 
 ## Code
 
