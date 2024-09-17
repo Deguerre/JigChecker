@@ -174,16 +174,12 @@ ExactCover::CoverColumn(id_t constraint)
     Unlink(col.head);
 
     for (auto i = centry.down; i != col.head; i = entries[i].down) {
-        // auto rheadid = moves[entries[i].move].head;
         auto rheadid = i;
         auto& rentry = entries[rheadid];
-        // std::cerr << "Eliminating move " << moves[rentry.move].name << '\n';
         for (auto j = rentry.right; j != rheadid; j = entries[j].right) {
             if (entries[j].constraint != std::numeric_limits<id_t>::max()) {
                 UnlinkVert(j);
                 --constraints[entries[j].constraint].count;
-                // std::cerr << "  Removing from constraint " << constraints[entries[j].constraint].name << " -> " << constraints[entries[j].constraint].count << '\n';
-
             }
         }
     }
@@ -247,22 +243,11 @@ ExactCover::RecursiveSolve(solution_t& curSolution, std::deque<solution_t>& spud
     // If all constraints are satisfied, we have a solution.
     if (c == constraintHead) {
 #ifdef VERBOSE_DEBUG
-        std::cerr << depth << ": Found solution!\n";
+        std::cerr << depth << ": Found solution\n";
 #endif
         spud.push_back(curSolution);
         return;
     }
-
-#ifdef VERBOSE_DEBUG
-    if (curSolution.size() > 24) {
-        std::cerr << "XXX warning\n";
-        std::cerr << "Current solution: ";
-        for (auto m : curSolution) {
-            std::cerr << ' ' << moves[m].name;
-        }
-        std::cerr << '\n';
-    }
-#endif
 
     // Otherwise, try to satisfy this constraint.
 #ifdef VERBOSE_DEBUG
@@ -310,12 +295,14 @@ void ExactCover::Unlink(id_t id)
     entries[entry.left].right = entry.right;
 }
 
+
 void ExactCover::Link(id_t id)
 {
     auto& entry = entries[id];
     entries[entry.right].left = id;
     entries[entry.left].right = id;
 }
+
 
 void ExactCover::LinkVert(id_t id)
 {
@@ -324,10 +311,10 @@ void ExactCover::LinkVert(id_t id)
     entries[entry.up].down = id;
 }
 
+
 void ExactCover::UnlinkVert(id_t id)
 {
     auto& entry = entries[id];
     entries[entry.down].up = entry.up;
     entries[entry.up].down = entry.down;
 }
-
